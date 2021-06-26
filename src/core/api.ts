@@ -1,6 +1,6 @@
 import { NewsFeed, NewsDetail } from '../types';
 
-export default class Api {
+export class Api {
   ajax: XMLHttpRequest;
   url: string;
 
@@ -9,12 +9,12 @@ export default class Api {
     this.url = url;
   }
 
-  getRequest<AjaxResponse>(): AjaxResponse {
-    this.ajax.open('GET', this.url, false);
-    this.ajax.send();
-
-    return JSON.parse(this.ajax.response) as AjaxResponse;
-  }
+  getRequest<AjaxResponse>(cb: (data: AjaxResponse) => void): void {
+    this.ajax.open('GET', this.url);
+    this.ajax.addEventListener('load', () => {
+      cb(JSON.parse(this.ajax.response) as AjaxResponse);
+    })
+    this.ajax.send()
 }
 
 export class NewsFeedApi extends Api {
@@ -22,8 +22,8 @@ export class NewsFeedApi extends Api {
     super(url);
   }
 
-  getData(): NewsFeed[] {
-    return this.getRequest<NewsFeed[]>();
+  getData(cb: (data: NewsFeed[]) => void): void {
+    return this.getRequest<NewsFeed[]>(cb);
   }
 }
 
@@ -32,7 +32,7 @@ export class NewsDetailApi extends Api {
     super(url);
   }
 
-  getData(): NewsDetail {
-    return this.getRequest<NewsDetail>();
+  getData(cb: (data: NewsDetail) => void): void {
+    return this.getRequest<NewsDetail>(cb);
   }
 }
