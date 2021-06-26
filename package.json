@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "chalk": "^4.1.1",
+    "cheerio": "^1.0.0-rc.9",
+    "colors": "^1.4.0",
+    "puppeteer": "^9.1.1",
+    "tailwindcss": "^2.1.2"
+  }
+}
