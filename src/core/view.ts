@@ -10,7 +10,7 @@ export default abstract class View {
     if (!conatinerElement) {
       throw '최상위 컨테이너가 없어 UI를 진행하지 못합니다.';
     }
-  
+
     this.container = conatinerElement;
     this.template = template;
     this.renderTemplate = template;
